@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{%block main %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+ 
+    <div class="menu">
+        <a href=add_author ><button class="add_author">Dodaj Authora</button></a>
+        <button class="add_book">Dodaj Ksiażkę</button>
+    </div>
+        <div class="storage">
+            <table class="table_books">
+                <tr><th>Tytuł</th><th>Imię</th><th>Nazwisko</th></tr>
+                {% for data in data_book%}
+                <tr><td>{{data[0]}}</td><td>{{data[1]}}</td><td>{{data[2]}}</td></tr>
+                {%endfor%}
+                </table>
+        </div>
+   </div>
+{%endblock %}

@@ -15,17 +15,27 @@ app = Flask(__name__)
 app.secret_key = os.environ['secret_key']
 database = Database()
 
-@app.route("/admin")
+@app.route("/admin", methods=['GET', 'POST'])
 def admin():
     data = database.get_all_books()
-    return render_template('index.html', data_book = data)
+    return render_template('admin.html', data_book = data)
 
 @app.route("/add_author", methods=['GET', 'POST'])
-def add_author():
+def add_author():  
     if request.method == 'POST':
-        pass
-
-    return render_template('add_author.html')
+        try:
+            first_name = request.form['first_name']
+            last_name = request.form['last_name']
+            if first_name == "" or last_name == "" :
+                message = f'Te pola nie mogą być puste'
+        except ValueError as e:
+            logging.error(e)
+            message = e
+        
+        message = database.add_author(first_name, last_name)
+        flash(f'{message}')
+        return redirect('/admin')
+    return render_template('add_author.html') 
 
 
 if __name__ == '__main__':
