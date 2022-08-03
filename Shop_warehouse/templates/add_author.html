@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Books Storage</title>
-</head>
-<body>
-    <form action="mailto:e-mail" method="post" enctype="text/plain"><div>
+{% extends "base.html"%}
+{% block main %}
+    {% with messages = get_flashed_messages() %}
+        <!-- {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %} -->
+                    <li>{{ message }}</li>
+                <!-- {% endfor %}
+            </ul>
+        {% endif %} -->
+    {% endwith %}
+
+    <form class="add-author" method="POST" action="{{ url_for('add_author') }}"><div>
         <table style="background-color: silver">
         <tr>
-            <td>Imię:</td><td><input type="text" name="imie"></td>
+            <td>Imię:</td><td><input type="text" name="first_name"></td>
         </tr>
         <tr>
-            <td>Nazwisko:</td><td><input type="text" name="nazwisko"></td>
+            <td>Nazwisko:</td><td><input type="text" name="last_name"></td>
         </tr>
         <tr>
             <br>
             <td colspan="2" style="text-align: center"><br>
-                <input type="submit" value="Wyślij">
-                <input type="reset" value="Wyczyść">
+                <button type="submit" value="Wyślij">Wyślij</button>
             </td>
         </tr>
         </table>
         </div></form>
-</body>
-</html>
+{% endblock %}
